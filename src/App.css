@@ -1,38 +1,55 @@
-.App {
-  text-align: center;
+body {
+  padding: 15px;
+  background-color: #404040;
+  color: #dcdccc;
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 12px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+a {
+  color: #7F9F7F;
+  font-size: 14px;
+  text-decoration: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+a:hover {
+  text-decoration: underline;
+}
+
+.arcticle .main, .stats {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 
 .arcticle {
-  display: flex;
+  margin: 5px 0px;
+}
+
+.arcticle .main {
+  padding: 5px;
+  flex-wrap: nowrap;
+  align-items: stretch;
+}
+
+.arcticle .index {
+  margin-right: 5px;
+}
+
+.arcticle .title {
+  max-width: 500px;
+  flex-basis: content;
+}
+
+.arcticle .stats {
+  margin-left: 25px;
+}
+
+.arcticle .stats .separator {
+  padding: 0px 5px;
+}
+
+.arcticles {
+  max-width: 800px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
 }

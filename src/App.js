@@ -1,11 +1,13 @@
 import React from "react";
 import "./App.css";
 import ArcticleTitle from "./components/ArctitcleTitle";
+import Loader from "./components/Loader";
 
 const hnBaseEndpoint = `https://hacker-news.firebaseio.com/v0/`;
 
 class App extends React.Component {
   state = {
+    loading : true,
     arcticles: []
   };
 
@@ -16,7 +18,7 @@ class App extends React.Component {
       })
       .then(data => {
         const storyPromises = [];
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 30; i++) {
           storyPromises.push(
             new Promise((resolve, reject) => {
               fetch(`${hnBaseEndpoint}item/${data[i]}.json`)
@@ -27,7 +29,11 @@ class App extends React.Component {
                     title: arcticleData.title,
                     author: arcticleData.by,
                     url: arcticleData.url,
-                    time: arcticleData.time
+                    time: arcticleData.time,
+                    commentCount: arcticleData.kids 
+                      ? arcticleData.kids.length
+                      : 0,
+                    score: arcticleData.score
                   });
                 });
             })
@@ -35,7 +41,7 @@ class App extends React.Component {
         }
 
         Promise.all(storyPromises).then(arcticles =>
-          this.setState({ arcticles: arcticles })
+          this.setState({ arcticles: arcticles, loading: false})
         );
       });
   }
@@ -43,7 +49,16 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <ArcticleTitle arcticles={this.state.arcticles} />
+        <div className="arcticles">
+          <h1>
+            Hacker News App
+          </h1>
+          <h4>
+            To learn React by building a real world application.
+          </h4>
+          <Loader loading={this.state.loading} />
+          <ArcticleTitle arcticles={this.state.arcticles} />
+        </div>
       </div>
     );
   }
