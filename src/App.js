@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import ArcticleTitle from "./components/ArctitcleTitle";
 import Loader from "./components/Loader";
+import ThemeSwitch from "./components/ThemeSwitch"
 
 const hnBaseEndpoint = `https://hacker-news.firebaseio.com/v0/`;
 
@@ -58,6 +59,7 @@ class App extends React.Component {
           </h4>
           <Loader loading={this.state.loading} />
           <ArcticleTitle arcticles={this.state.arcticles} />
+          <ThemeSwitch />
         </div>
       </div>
     );

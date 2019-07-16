@@ -1,4 +1,4 @@
-body {
+body.night {
   padding: 15px;
   background-color: #404040;
   color: #dcdccc;
@@ -6,7 +6,7 @@ body {
   font-size: 12px;
 }
 
-a {
+body.night a {
   color: #7F9F7F;
   font-size: 14px;
   text-decoration: none;
@@ -52,4 +52,22 @@ a:hover {
   margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
+}
+
+.switcher {
+  width: 50px;
+  height: 50px;
+  background-color:#dcdccc;
+  background-size: contain;
+  position: fixed;
+  top: 0px;
+  right: 0px;
+}
+
+.switcher.night {
+  background-image: url("/icons/night-mode.png");
+}
+
+.switcher.light {
+  background-image: url("/icons/day-mode.png");
 }
