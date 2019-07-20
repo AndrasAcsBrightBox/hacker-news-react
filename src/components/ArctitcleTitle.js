@@ -1,36 +1,32 @@
 import React from "react";
-import moment from 'moment';
+import moment from "moment";
 
 class ArcticleTitle extends React.Component {
   render() {
-    let arcticleIndex = 1;
     return this.props.arcticles.map(arcticle => (
-      <div className="arcticle" key={arcticleIndex}>
+      <div
+        className={"arcticle " + (arcticle.title === "" ? "skeleton" : "")}
+        key={arcticle.index}
+      >
         <div className="main">
-        <div className="index">
-          {arcticleIndex++}.
-        </div>
-        <div className="title" target="_blank">
-          <a href={arcticle.url}>
-            {arcticle.title}
-          </a>
-        </div>
+          <div className="index">{arcticle.title !== "" ? arcticle.index + 1 + '.' : ''}</div>
+          <div className="title" target="_blank">
+            <a href={arcticle.url}>{arcticle.title}</a>
+          </div>
         </div>
         <div className="stats">
           <div className="author">
-            {arcticle.score} points by {arcticle.author}
+            {arcticle.title !== ""
+              ? arcticle.score + " points by" + arcticle.author
+              : ""}
           </div>
-          <div className="separator">
-            |
-          </div>
+          <div className="separator">{arcticle.title !== "" ? "|" : ""} </div>
           <div className="time">
-            {moment.unix(arcticle.time).fromNow()}
+            {arcticle.title !== "" ? moment.unix(arcticle.time).fromNow() : ""}
           </div>
-          <div className="separator">
-            |
-          </div>
+          <div className="separator">{arcticle.title !== "" ? "|" : ""} </div>
           <div className="comments">
-            {arcticle.commentCount} comments
+            {arcticle.title !== "" ? arcticle.commentCount + " comments" : ""}
           </div>
         </div>
       </div>

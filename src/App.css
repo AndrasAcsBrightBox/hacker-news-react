@@ -50,6 +50,10 @@ body.light .App .arcticles h1 {
   color: #000;
 }
 
+body.night .App .arcticles h1 {
+  background-color: #505050; 
+}
+
 a:hover {
   text-decoration: underline;
 }
@@ -109,3 +113,46 @@ a:hover {
 .switcher.light {
   background-image: url("/icons/day-mode.png");
 }
+
+.skeleton {
+  height: 43px;
+  width: 100%;
+}
+
+.skeleton .index {
+  min-width: 11px;
+  height: 18px;
+  background-image: 
+    linear-gradient(#dbdbdb 100%, transparent 0);
+  animation: loading 1.5s linear infinite;
+  background-position: 0px 0px;
+  background-repeat: no-repeat;
+  background-color: #c5c5c5;
+}
+
+.skeleton .title {
+  background-repeat: no-repeat;
+  background-color: #c5c5c5;
+  background-image: 
+    linear-gradient(#dbdbdb 100%, transparent 0);
+  height: 18px;
+  min-width: 450px;
+  animation: loading 1.5s linear infinite;
+  background-position: 0px 0px;
+}
+
+.skeleton .stats {
+  background-repeat: no-repeat;
+  background-image: 
+    linear-gradient(#dbdbdb 100%, transparent 0);
+    width: 300px;
+    height: 18px;
+    background-color: #c5c5c5;
+    animation: loading 1.5s linear infinite;
+    background-position: 0px 0px;
+}
+
+@keyframes loading {
+    to { background-position: 500px 0px; }
+}
+
