@@ -1,15 +1,53 @@
-body.night {
-  padding: 15px;
-  background-color: #404040;
-  color: #dcdccc;
+body {
+  padding: 0px;
+}
+
+body {
   font-family: Verdana, Geneva, sans-serif;
   font-size: 12px;
+  padding: 15px;
+}
+
+a {
+  font-size: 14px;
+  text-decoration: none;
+}
+
+body .App .arcticles h1 {
+  padding: 5px 0px 5px 10px;
+  margin-left: -5px;
+  width: 100%;
+}
+
+body.night {
+  background-color: #404040;
+  color: #dcdccc;
+}
+
+body.light a {
+  color: #000;
 }
 
 body.night a {
   color: #7F9F7F;
-  font-size: 14px;
-  text-decoration: none;
+}
+
+body .arcticles {
+  padding: 0px 5px;
+}
+
+body.light {
+  color: #828282;
+}
+
+body.light .arcticles {
+  background-color: #f6f6ef;
+}
+
+body.light .App .arcticles h1 {
+  width: 100%;
+  background-color: #ff6600;
+  color: #000;
 }
 
 a:hover {

@@ -5,7 +5,7 @@ class ThemeSwitch extends React.Component {
         super(props);
 
         this.state = {
-            isDark : true
+            isDark : false
         }
     }
 
