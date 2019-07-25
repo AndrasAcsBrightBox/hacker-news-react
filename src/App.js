@@ -3,13 +3,15 @@ import "./App.css";
 import ArcticleTitle from "./components/ArctitcleTitle";
 import Loader from "./components/Loader";
 import ThemeSwitch from "./components/ThemeSwitch";
+import Search from "./components/Search";
 
 const hnBaseEndpoint = `https://hacker-news.firebaseio.com/v0/`;
 
 class App extends React.Component {
   state = {
     loading: true,
-    arcticles: []
+    arcticles: [],
+    searchTerm: ""
   };
 
   componentDidMount() {
@@ -29,7 +31,8 @@ class App extends React.Component {
             score: "",
             author: "",
             time: new Date(),
-            commentCount: 0
+            commentCount: 0,
+            visible: true
           };
           storyPromises.push(
             new Promise(resolve => {
@@ -48,32 +51,56 @@ class App extends React.Component {
                       commentCount: arcticleData.kids
                         ? arcticleData.kids.length
                         : 0,
-                      score: arcticleData.score
-                    })}, 1000 * Math.random() + i * 500 * Math.random()      
-                  );
+                      score: arcticleData.score,
+                      visible: true
+                    });
+                  }, 1000 * Math.random() + i * 500 * Math.random());
                 });
             })
           );
         }
-        this.setState({arcticles: arcticles, loading: false });
+        this.setState({ arcticles: arcticles, loading: false });
 
         storyPromises.forEach(story =>
           story.then(arcticle => {
             arcticles[arcticle.index] = arcticle;
             this.setState({ arcticles: arcticles, loading: false });
+            if (this.state.searchTerm) {
+              this.onSearch(this.state.searchTerm);
+            }
           })
         );
       });
+  }
+
+  onSearch(searchValue) {
+    this.setState({
+      arcticles: this.state.arcticles.map(arcticle => {
+        arcticle.visible =
+          arcticle.title.toLowerCase().indexOf(searchValue.toLowerCase()) > -1;
+        return arcticle;
+      }),
+      searchTerm: searchValue
+    });
   }
 
   render() {
     return (
       <div className="App">
         <div className="arcticles">
-          <h1>Hacker News App</h1>
+          <div className="title">
+            <h1>Hacker News App</h1>
+            <div />
+            <div className="search">
+              <Search onSearch={this.onSearch.bind(this)} />
+            </div>
+          </div>
           <h4>To learn React by building a real world application.</h4>
           <Loader loading={this.state.loading} />
-          <ArcticleTitle arcticles={this.state.arcticles} />
+          <ArcticleTitle
+            arcticles={this.state.arcticles}
+            searchTerm={this.state.searchTerm}
+          />
           <ThemeSwitch />
         </div>
       </div>
