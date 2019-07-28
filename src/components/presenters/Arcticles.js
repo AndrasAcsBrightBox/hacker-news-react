@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 
-class ArcticleTitle extends React.Component {
+class Arcticles extends React.Component {
   getHighlightedTitle(title, searchTerm) {
     if (!searchTerm) return title;
     else {
@@ -46,7 +46,7 @@ class ArcticleTitle extends React.Component {
                 <a href={arcticle.url}>
                   {this.getHighlightedTitle(
                     arcticle.title,
-                    this.props.searchTerm
+                    this.props.filterTerm
                   )}
                 </a>
               </div>
@@ -67,4 +67,4 @@ class ArcticleTitle extends React.Component {
   }
 }
 
-export default ArcticleTitle;
+export default Arcticles;

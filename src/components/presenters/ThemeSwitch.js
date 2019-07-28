@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ThemeSwitch extends React.Component {
+class ThemeSwitcher extends React.Component {
     constructor(props) {
         super(props);
 
@@ -9,7 +9,7 @@ class ThemeSwitch extends React.Component {
         }
     }
 
-    swithChange(eventArgs) {
+    swithChange = ()  => {
         let newState = {isDark : !this.state.isDark};
         this.setState(newState);
 
@@ -24,9 +24,9 @@ class ThemeSwitch extends React.Component {
                 className={
                 "switcher " + 
                 (this.state.isDark ? "night" : "light")}
-                onClick={this.swithChange.bind(this)}>
+                onClick={this.swithChange}>
             </div>);
     }
 }
 
-export default ThemeSwitch;
+export default ThemeSwitcher;
