@@ -12,12 +12,16 @@ class ArcticlesContainer extends Component {
     this.hnBaseEndpoint = `https://hacker-news.firebaseio.com/v0/`;
   }
 
-  resolveStoryPromise = (resolve, data, index) => {
-    fetch(`${this.hnBaseEndpoint}item/${data[index]}.json`)
-      .then(res => res.json())
-      .then(arcticle => {
-        // TODO - remove this - only to demo the `skeleton` effect
-        setTimeout(() => {
+  async resolveStoryPromise(data, index) {
+    const response = await fetch(
+      `${this.hnBaseEndpoint}item/${data[index]}.json`
+    );
+    const arcticle = await response.json();
+
+    // We need to promisify the set timeout, as it is not returning with a Promise.
+    return await new Promise(resolve =>
+      setTimeout(
+        () =>
           resolve({
             index: index,
             id: arcticle.id,
@@ -28,10 +32,11 @@ class ArcticlesContainer extends Component {
             commentCount: arcticle.kids ? arcticle.kids.length : 0,
             score: arcticle.score,
             visible: true
-          });
-        }, 1000 * Math.random() + index * 500 * Math.random());
-      });
-  };
+          }),
+        1000 * Math.random() + index * 500 * Math.random()
+      )
+    );
+  }
 
   onFilter = searchValue => {
     this.setState({
@@ -44,54 +49,47 @@ class ArcticlesContainer extends Component {
     });
   };
 
-  componentDidMount = () => {
-    fetch(`${this.hnBaseEndpoint}topstories.json`)
-      .then(result => {
-        return result.json();
-      })
-      .then(data => {
-        const arcticlePromises = [];
-        const arcticles = [];
-        const arcticleCount = 30;
-        for (let index = 0; index < arcticleCount; index++) {
-          arcticles[index] = {
-            index: index,
-            url: "",
-            title: "",
-            score: "",
-            author: "",
-            time: new Date(),
-            commentCount: 0,
-            visible: true
-          };
-          arcticlePromises.push(
-            new Promise(resolve => {
-              this.resolveStoryPromise(resolve, data, index);
-            }).then(arcticle => {
-              arcticles[arcticle.index] = arcticle;
-              this.setState({ arcticles: arcticles });
-              if (this.state.filterTerm) {
-                this.onFilter(this.state.filterTerm);
-              }
-            })
-          );
-        }
-        this.setState({ arcticles: arcticles });
-      });
+  async componentDidMount() {
+    const arcticles = [];
+    const arcticleCount = 30;
+    for (let index = 0; index < arcticleCount; index++) {
+      arcticles[index] = {
+        index: index,
+        url: "",
+        title: "",
+        score: "",
+        author: "",
+        time: new Date(),
+        commentCount: 0,
+        visible: true
+      };
+    }
+
+    this.setState({ arcticles: arcticles });
+
+    const response = await fetch(`${this.hnBaseEndpoint}topstories.json`);
+    const topStories = await response.json();
+
+    arcticles.forEach(async (arcticle, index) => {
+      const storyDetails = await this.resolveStoryPromise(topStories, index);
+      arcticles[index] = storyDetails;
+      this.setState({ arcticles: arcticles });
+      if (this.state.filterTerm) {
+        this.onFilter(this.state.filterTerm);
+      }
+    });
   }
 
   render() {
     return (
       <React.Fragment>
-        {
-          React.Children.map(this.props.children, child =>
-            React.cloneElement(child, {
-              arcticles: this.state.arcticles,
-              onFilter: this.onFilter,
-              filterTerm: this.state.filterTerm
-            })
-          )
-        }
+        {React.Children.map(this.props.children, child =>
+          React.cloneElement(child, {
+            arcticles: this.state.arcticles,
+            onFilter: this.onFilter,
+            filterTerm: this.state.filterTerm
+          })
+        )}
       </React.Fragment>
     );
   }
