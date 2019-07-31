@@ -1,12 +1,12 @@
 import React from "react";
-import AbstractArcticleHandler from "./AbstractArcticleHandler";
+import ArcticleHandler from "./ArcticleHandler";
 
-class ArcticleNotVisibleHandler extends AbstractArcticleHandler {
-  HandleRequest = (arcticle, filterTerm) => {
+class ArcticleNotVisibleHandler extends ArcticleHandler {
+  handleRequest = (arcticle, filterTerm) =>  {
     if (arcticle.visible === false) {
       return <React.Fragment key={arcticle.index} />;
     }
-    return this.successor.HandleRequest(arcticle, filterTerm);
+    return super.handleRequest(arcticle, filterTerm);
   };
 }
 

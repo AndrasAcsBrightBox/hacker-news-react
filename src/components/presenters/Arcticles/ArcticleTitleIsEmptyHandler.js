@@ -1,8 +1,8 @@
-import React from 'react';
-import AbstractArcticleHandler from "./AbstractArcticleHandler";
+import React from "react";
+import ArcticleHandler from "./ArcticleHandler";
 
-class ArcticleTitleIsEmptyHandler extends AbstractArcticleHandler {
-  HandleRequest = (arcticle, filterTerm) => {
+class ArcticleTitleIsEmptyHandler extends ArcticleHandler {
+  handleRequest = (arcticle, filterTerm) => {
     if (arcticle.title === "") {
       return (
         <div className="arcticle skeleton" key={arcticle.index}>
@@ -20,7 +20,7 @@ class ArcticleTitleIsEmptyHandler extends AbstractArcticleHandler {
         </div>
       );
     }
-    return this.successor.HandleRequest(arcticle, filterTerm);
+    return super.handleRequest(arcticle, filterTerm);
   };
 }
 

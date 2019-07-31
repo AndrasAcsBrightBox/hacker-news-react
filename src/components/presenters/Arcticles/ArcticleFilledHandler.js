@@ -1,9 +1,9 @@
 import React from "react";
-import AbstractArcticleHandler from "./AbstractArcticleHandler";
+import ArcticleHandler from "./ArcticleHandler";
 import moment from "moment";
 
-class ArcticleFilledHandler extends AbstractArcticleHandler {
-  getHighlightedTitle = (title, searchTerm) => {
+class ArcticleFilledHandler extends ArcticleHandler {
+  getHighlightedTitle (title, searchTerm) {
     if (!searchTerm) return title;
     else {
       const findStart = title.toLowerCase().indexOf(searchTerm.toLowerCase());
@@ -19,7 +19,7 @@ class ArcticleFilledHandler extends AbstractArcticleHandler {
     }
   };
 
-  HandleRequest = (arcticle, filterTerm) => {
+  handleRequest = (arcticle, filterTerm) => {
     return (
       <div className="arcticle" key={arcticle.index}>
         <div className="main">
