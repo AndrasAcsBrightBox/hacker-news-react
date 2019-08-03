@@ -13,37 +13,33 @@ class ArcticlesContainer extends Component {
   }
 
   async resolveStoryPromise(data, index, startArcticlesFromIndex) {
-
-    // TODO: find out why I end up with duplicated arcticles sometimes.
-    let calculatedIndex = index;
-    if(startArcticlesFromIndex != null) {
-      calculatedIndex = index + parseInt(startArcticlesFromIndex);
-    }
-
     const response = await fetch(
-      `${this.hnBaseEndpoint}item/${data[calculatedIndex]}.json`
+      `${this.hnBaseEndpoint}item/${data[index]}.json`
     );
     const arcticle = await response.json();
 
     // We need to promisify the set timeout, as it is not returning with a Promise.
     return await new Promise(resolve =>
       setTimeout(
-        () =>
-          resolve({
-            index: calculatedIndex,
-            id: arcticle.id,
-            title: arcticle.title,
-            author: arcticle.by,
-            url: arcticle.url,
-            time: arcticle.time,
-            commentCount: arcticle.kids ? arcticle.kids.length : 0,
-            score: arcticle.score,
-            visible: true
-          }),
+        this.resolveSingleArcticle(arcticle, index, resolve),
         1000 * Math.random() + index * 500 * Math.random()
       )
     );
   }
+
+  resolveSingleArcticle = (arcticle, index, resolve) => {
+    resolve({
+      index: index,
+      id: arcticle.id,
+      title: arcticle.title,
+      author: arcticle.by,
+      url: arcticle.url,
+      time: arcticle.time,
+      commentCount: arcticle.kids ? arcticle.kids.length : 0,
+      score: arcticle.score,
+      visible: true
+    });
+  };
 
   onFilter = searchValue => {
     this.setState({
@@ -59,7 +55,11 @@ class ArcticlesContainer extends Component {
   async componentDidMount() {
     const arcticles = [];
     const arcticleCount = 30;
-    for (let index = 0; index < arcticleCount; index++) {
+    const startIndex =
+      this.props.startArcticlesFrom != null
+        ? parseInt(this.props.startArcticlesFrom)
+        : 0;
+    for (let index = startIndex; index < arcticleCount + startIndex; index++) {
       arcticles[index] = {
         index: index,
         url: "",
@@ -78,7 +78,11 @@ class ArcticlesContainer extends Component {
     const topStories = await response.json();
 
     arcticles.forEach(async (arcticle, index) => {
-      const storyDetails = await this.resolveStoryPromise(topStories, index, this.props.startArctclesFrom);
+      const storyDetails = await this.resolveStoryPromise(
+        topStories,
+        index,
+        this.props.startArcticlesFrom
+      );
       arcticles[index] = storyDetails;
       this.setState({ arcticles: arcticles });
       if (this.state.filterTerm) {

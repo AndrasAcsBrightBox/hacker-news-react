@@ -8,7 +8,7 @@ import Header from "./Header";
 class Home extends React.Component {
   render() {
     return (
-      <ArcticlesContainer startArctclesFrom={this.props.match.params.id}>
+      <ArcticlesContainer startArcticlesFrom={this.props.match.params.id}>
         <Header />
         <Arcticles />
         <ThemeSwitcher />
