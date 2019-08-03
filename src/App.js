@@ -1,9 +1,9 @@
 import React from "react";
+import { BrowserRouter as Router, Route} from "react-router-dom"
+
 import "./App.css";
-import ThemeSwitcher from "./components/presenters/ThemeSwitch";
-import ArcticlesContainer from "./components/containers/ArcticlesContainer";
-import Arcticles from "./components/presenters/Arcticles";
-import Header from "./components/presenters/Header";
+
+import Home from './components/presenters/Home';
 
 class App extends React.Component {
  
@@ -11,11 +11,9 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="arcticles">
-        <ArcticlesContainer>
-            <Header />
-            <Arcticles />
-            <ThemeSwitcher />
-        </ArcticlesContainer>
+          <Router>
+            <Route path="/:id?" exact component={Home} />
+          </Router>
         </div>
       </div>
     );

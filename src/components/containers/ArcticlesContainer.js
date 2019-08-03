@@ -5,6 +5,7 @@ class ArcticlesContainer extends Component {
     super(props);
 
     this.state = {
+      arcticleCount: 0,
       arcticles: [],
       filterTerm: ""
     };
@@ -12,7 +13,7 @@ class ArcticlesContainer extends Component {
     this.hnBaseEndpoint = `https://hacker-news.firebaseio.com/v0/`;
   }
 
-  async resolveStoryPromise(data, index) {
+  async resolveStoryPromise(data, index, startArcticlesFromIndex) {
     const response = await fetch(
       `${this.hnBaseEndpoint}item/${data[index]}.json`
     );
@@ -21,22 +22,25 @@ class ArcticlesContainer extends Component {
     // We need to promisify the set timeout, as it is not returning with a Promise.
     return await new Promise(resolve =>
       setTimeout(
-        () =>
-          resolve({
-            index: index,
-            id: arcticle.id,
-            title: arcticle.title,
-            author: arcticle.by,
-            url: arcticle.url,
-            time: arcticle.time,
-            commentCount: arcticle.kids ? arcticle.kids.length : 0,
-            score: arcticle.score,
-            visible: true
-          }),
+        this.resolveSingleArcticle(arcticle, index, resolve),
         1000 * Math.random() + index * 500 * Math.random()
       )
     );
   }
+
+  resolveSingleArcticle = (arcticle, index, resolve) => {
+    resolve({
+      index: index,
+      id: arcticle.id,
+      title: arcticle.title,
+      author: arcticle.by,
+      url: arcticle.url,
+      time: arcticle.time,
+      commentCount: arcticle.kids ? arcticle.kids.length : 0,
+      score: arcticle.score,
+      visible: true
+    });
+  };
 
   onFilter = searchValue => {
     this.setState({
@@ -52,7 +56,11 @@ class ArcticlesContainer extends Component {
   async componentDidMount() {
     const arcticles = [];
     const arcticleCount = 30;
-    for (let index = 0; index < arcticleCount; index++) {
+    const startIndex =
+      this.props.startArcticlesFrom != null
+        ? parseInt(this.props.startArcticlesFrom)
+        : 0;
+    for (let index = startIndex; index < arcticleCount + startIndex; index++) {
       arcticles[index] = {
         index: index,
         url: "",
@@ -69,9 +77,14 @@ class ArcticlesContainer extends Component {
 
     const response = await fetch(`${this.hnBaseEndpoint}topstories.json`);
     const topStories = await response.json();
+    this.setState({ arcticleCount: topStories.length });
 
     arcticles.forEach(async (arcticle, index) => {
-      const storyDetails = await this.resolveStoryPromise(topStories, index);
+      const storyDetails = await this.resolveStoryPromise(
+        topStories,
+        index,
+        this.props.startArcticlesFrom
+      );
       arcticles[index] = storyDetails;
       this.setState({ arcticles: arcticles });
       if (this.state.filterTerm) {
@@ -87,7 +100,8 @@ class ArcticlesContainer extends Component {
           React.cloneElement(child, {
             arcticles: this.state.arcticles,
             onFilter: this.onFilter,
-            filterTerm: this.state.filterTerm
+            filterTerm: this.state.filterTerm,
+            arcticleCount: this.state.arcticleCount
           })
         )}
       </React.Fragment>
