@@ -12,9 +12,16 @@ class ArcticlesContainer extends Component {
     this.hnBaseEndpoint = `https://hacker-news.firebaseio.com/v0/`;
   }
 
-  async resolveStoryPromise(data, index) {
+  async resolveStoryPromise(data, index, startArcticlesFromIndex) {
+
+    // TODO: find out why I end up with duplicated arcticles sometimes.
+    let calculatedIndex = index;
+    if(startArcticlesFromIndex != null) {
+      calculatedIndex = index + parseInt(startArcticlesFromIndex);
+    }
+
     const response = await fetch(
-      `${this.hnBaseEndpoint}item/${data[index]}.json`
+      `${this.hnBaseEndpoint}item/${data[calculatedIndex]}.json`
     );
     const arcticle = await response.json();
 
@@ -23,7 +30,7 @@ class ArcticlesContainer extends Component {
       setTimeout(
         () =>
           resolve({
-            index: index,
+            index: calculatedIndex,
             id: arcticle.id,
             title: arcticle.title,
             author: arcticle.by,
@@ -71,7 +78,7 @@ class ArcticlesContainer extends Component {
     const topStories = await response.json();
 
     arcticles.forEach(async (arcticle, index) => {
-      const storyDetails = await this.resolveStoryPromise(topStories, index);
+      const storyDetails = await this.resolveStoryPromise(topStories, index, this.props.startArctclesFrom);
       arcticles[index] = storyDetails;
       this.setState({ arcticles: arcticles });
       if (this.state.filterTerm) {
