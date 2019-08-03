@@ -37,7 +37,7 @@ class ArcticleFilledHandler extends ArcticleHandler {
           <div className="separator">|</div>
           <div className="time">{moment.unix(arcticle.time).fromNow()}</div>
           <div className="separator">|</div>
-          <div className="comments">{arcticle.commentCount} comments"</div>
+          <div className="comments">{arcticle.commentCount} comments</div>
         </div>
       </div>
     );

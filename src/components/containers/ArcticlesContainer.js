@@ -5,6 +5,7 @@ class ArcticlesContainer extends Component {
     super(props);
 
     this.state = {
+      arcticleCount: 0,
       arcticles: [],
       filterTerm: ""
     };
@@ -76,6 +77,7 @@ class ArcticlesContainer extends Component {
 
     const response = await fetch(`${this.hnBaseEndpoint}topstories.json`);
     const topStories = await response.json();
+    this.setState({ arcticleCount: topStories.length });
 
     arcticles.forEach(async (arcticle, index) => {
       const storyDetails = await this.resolveStoryPromise(
@@ -98,7 +100,8 @@ class ArcticlesContainer extends Component {
           React.cloneElement(child, {
             arcticles: this.state.arcticles,
             onFilter: this.onFilter,
-            filterTerm: this.state.filterTerm
+            filterTerm: this.state.filterTerm,
+            arcticleCount: this.state.arcticleCount
           })
         )}
       </React.Fragment>
