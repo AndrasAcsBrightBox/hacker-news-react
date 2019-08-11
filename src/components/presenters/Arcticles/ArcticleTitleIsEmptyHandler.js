@@ -5,17 +5,17 @@ class ArcticleTitleIsEmptyHandler extends ArcticleHandler {
   handleRequest = (arcticle, filterTerm) => {
     if (arcticle.title === "") {
       return (
-        <div className="arcticle skeleton" key={arcticle.index}>
-          <div className="main">
-            <div className="index" />
-            <div className="title" target="_blank" />
+        <div className="article article--skeleton" key={arcticle.index}>
+          <div className="article__body">
+            <div className="article__index" />
+            <div className="article__title" target="_blank" />
           </div>
-          <div className="stats">
-            <div className="author" />
-            <div className="separator" />
-            <div className="time" />
-            <div className="separator" />
-            <div className="comments" />
+          <div className="article__stats">
+            <div className="article__author" />
+            <div className="article__separator" />
+            <div className="article__time" />
+            <div className="article__separator" />
+            <div className="article__comments" />
           </div>
         </div>
       );

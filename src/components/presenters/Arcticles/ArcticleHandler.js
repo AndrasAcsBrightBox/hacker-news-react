@@ -1,7 +1,6 @@
 class ArcticleHandler {
   constructor() {
     this.handlers = [];
-    this.handleRequest = this.handleRequest.bind(this);
   }
 
   addHandler = handler => {

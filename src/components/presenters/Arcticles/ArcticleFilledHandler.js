@@ -10,7 +10,7 @@ class ArcticleFilledHandler extends ArcticleHandler {
       return (
         <React.Fragment>
           {title.substr(0, findStart)}
-          <span className="highlighted">
+          <span className="article__title--highlighted">
             {title.substr(findStart, searchTerm.length)}
           </span>
           {title.substr(findStart + searchTerm.length)}
@@ -21,23 +21,23 @@ class ArcticleFilledHandler extends ArcticleHandler {
 
   handleRequest = (arcticle, filterTerm) => {
     return (
-      <div className="arcticle" key={arcticle.index}>
-        <div className="main">
-          <div className="index">{arcticle.index + 1}</div>
-          <div className="title" target="_blank">
-            <a href={arcticle.url}>
+      <div className="article" key={arcticle.index}>
+        <div className="article__body">
+          <div className="article__index">{arcticle.index + 1}</div>
+          <div className="article__title" target="_blank">
+            <a href={arcticle.url} className='article__hyperlink'>
               {this.getHighlightedTitle(arcticle.title, filterTerm)}
             </a>
           </div>
         </div>
-        <div className="stats">
-          <div className="author">
+        <div className="article__stats">
+          <div className="article__author">
             {arcticle.score} points by {arcticle.author}
           </div>
-          <div className="separator">|</div>
-          <div className="time">{moment.unix(arcticle.time).fromNow()}</div>
-          <div className="separator">|</div>
-          <div className="comments">{arcticle.commentCount} comments</div>
+          <div className="article__separator">|</div>
+          <div className="article__time">{moment.unix(arcticle.time).fromNow()}</div>
+          <div className="article__separator">|</div>
+          <div className="article__comments">{arcticle.commentCount} comments</div>
         </div>
       </div>
     );

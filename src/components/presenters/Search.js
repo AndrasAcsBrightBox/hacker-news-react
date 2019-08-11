@@ -17,6 +17,7 @@ class Search extends React.Component {
         type="text"
         placeholder="Search.."
         onChange={this.onchange}
+        className="search"
       />
     );
   }
