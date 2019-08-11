@@ -9,13 +9,11 @@ class App extends React.Component {
  
   render() {
     return (
-      <div className="App">
-        <div className="arcticles">
+        <div className="full-content">
           <Router>
             <Route path="/:id?" exact component={Home} />
           </Router>
         </div>
-      </div>
     );
   }
 }

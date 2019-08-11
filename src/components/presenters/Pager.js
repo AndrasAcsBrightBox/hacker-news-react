@@ -12,7 +12,11 @@ class Pager extends React.Component {
 
   createGoHome = startIndex => {
     if (startIndex > 0) {
-      return <a href="/">First</a>;
+      return (
+        <a href="/" class="pager__hyperlink">
+          First
+        </a>
+      );
     }
     return <React.Fragment />;
   };
@@ -20,7 +24,10 @@ class Pager extends React.Component {
   createGoBack = startIndex => {
     if (startIndex >= 30) {
       return (
-        <a href={"/" + (startIndex - this.arcticleCountOnPage).toString()}>
+        <a
+          class="pager__hyperlink"
+          href={"/" + (startIndex - this.arcticleCountOnPage).toString()}
+        >
           Previous ({startIndex - this.arcticleCountOnPage + 1}..
           {startIndex})
         </a>
@@ -32,7 +39,10 @@ class Pager extends React.Component {
   createGoForward = (startIndex, arcticleCount) => {
     if (startIndex + this.arcticleCountOnPage < arcticleCount) {
       return (
-        <a href={"/" + (startIndex + this.arcticleCountOnPage).toString()}>
+        <a
+          class="pager__hyperlink"
+          href={"/" + (startIndex + this.arcticleCountOnPage).toString()}
+        >
           Next ({startIndex + this.arcticleCountOnPage + 1}..
           {startIndex + 2 * this.arcticleCountOnPage})
         </a>
@@ -44,7 +54,10 @@ class Pager extends React.Component {
   createGoLast = (startIndex, arcticleCount) => {
     if (startIndex + this.arcticleCountOnPage < arcticleCount) {
       return (
-        <a href={"/" + (arcticleCount - this.arcticleCountOnPage).toString()}>
+        <a
+          class="pager__hyperlink"
+          href={"/" + (arcticleCount - this.arcticleCountOnPage).toString()}
+        >
           Last
         </a>
       );
@@ -57,7 +70,8 @@ class Pager extends React.Component {
       <div class="pager">
         {this.createGoHome(this.startIndex)} &nbsp;&nbsp;
         {this.createGoBack(this.startIndex)} &nbsp;&nbsp;
-        {this.createGoForward(this.startIndex, this.props.arcticleCount)} &nbsp;&nbsp;
+        {this.createGoForward(this.startIndex, this.props.arcticleCount)}{" "}
+        &nbsp;&nbsp;
         {this.createGoLast(this.startIndex, this.props.arcticleCount)}
       </div>
     );

@@ -12,16 +12,14 @@ class Header extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        <div className="title">
-          <h1>Hacker News App</h1>
+      <div className="header">
+        <div className="page-title">
+          <h1 className="page-title__text">Hacker News App</h1>
           <div />
-          <div className="search">
-            <Search onFilter={this.onFilter} />
-          </div>
+          <Search onFilter={this.onFilter} />
         </div>
         <h4>To learn React by building a real world application.</h4>
-      </React.Fragment>
+        </div>
     );
   }
 }
