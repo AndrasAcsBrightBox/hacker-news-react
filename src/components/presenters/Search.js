@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PubSub from 'pubsub-js'
 
 class Search extends React.Component {
   constructor(props) {
@@ -8,7 +8,7 @@ class Search extends React.Component {
   }
   
   onchange(eventArgs) {
-    this.props.onFilter(eventArgs.target.value);
+    PubSub.publish('search__value--change', eventArgs.target.value);
   }
 
   render() {
@@ -21,10 +21,6 @@ class Search extends React.Component {
       />
     );
   }
-}
-
-Search.propTypes = {
-  onFilter: PropTypes.func.isRequired
 }
 
 export default Search;

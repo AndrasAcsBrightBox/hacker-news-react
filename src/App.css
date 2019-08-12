@@ -13,19 +13,33 @@
   color: #828282;
 }
 
+.article__hyperlink,
+.pager__hyperlink {
+  font-size: 14px;
+}
+
+.article__hyperlink,
+.pager__hyperlink,
+.arcticle__comment-hyperlink {
+  text-decoration: none;
+}
+
+.article__hyperlink:hover,
+.pager__hyperlink:hover,
+.arcticle__comment-hyperlink:hover {
+  text-decoration: underline;
+}
+
 .page-container--light .article__hyperlink,
-.page-container--light .pager__hyperlink {
+.page-container--light .pager__hyperlink,
+.page-container--light .arcticle__comment-hyperlink {
   color: #000;
 }
 
 .page-container--night .article__hyperlink,
-.page-container--night .pager__hyperlink  {
-  color: #7F9F7F;
-}
-
-.article__hyperlink, .pager__hyperlink {
-  font-size: 14px;
-  text-decoration: none;
+.page-container--night .pager__hyperlink,
+.page-container--night .arcticle__comment-hyperlink {
+  color: #7f9f7f;
 }
 
 .full-content {
@@ -52,7 +66,7 @@
 }
 
 .page-container--night .page-title {
-  background-color: #505050; 
+  background-color: #505050;
 }
 
 .page-title__text {
@@ -61,12 +75,8 @@
   width: 100%;
 }
 
-.article__hyperlink:hover,
-.pager__hyperlink:hover {
-  text-decoration: underline;
-}
-
-.article__body, .article__stats {
+.article__body,
+.article__stats {
   display: flex;
 }
 
@@ -107,7 +117,7 @@
 .theme-switcher {
   width: 50px;
   height: 50px;
-  background-color:#dcdccc;
+  background-color: #dcdccc;
   background-size: contain;
   position: fixed;
   top: 0px;
@@ -130,8 +140,7 @@
 .article--skeleton .article__index {
   min-width: 11px;
   height: 18px;
-  background-image: 
-    linear-gradient(#dbdbdb 100%, transparent 0);
+  background-image: linear-gradient(#dbdbdb 100%, transparent 0);
   animation: loading 1.5s linear infinite;
   background-position: 0px 0px;
   background-repeat: no-repeat;
@@ -141,8 +150,7 @@
 .article--skeleton .article__title {
   background-repeat: no-repeat;
   background-color: #c5c5c5;
-  background-image: 
-    linear-gradient(#dbdbdb 100%, transparent 0);
+  background-image: linear-gradient(#dbdbdb 100%, transparent 0);
   height: 18px;
   min-width: 450px;
   animation: loading 1.5s linear infinite;
@@ -151,20 +159,21 @@
 
 .article--skeleton .article__stats {
   background-repeat: no-repeat;
-  background-image: 
-    linear-gradient(#dbdbdb 100%, transparent 0);
-    width: 300px;
-    height: 18px;
-    background-color: #c5c5c5;
-    animation: loading 1.5s linear infinite;
-    background-position: 0px 0px;
+  background-image: linear-gradient(#dbdbdb 100%, transparent 0);
+  width: 300px;
+  height: 18px;
+  background-color: #c5c5c5;
+  animation: loading 1.5s linear infinite;
+  background-position: 0px 0px;
 }
 
 @keyframes loading {
-    to { background-position: 500px 0px; }
+  to {
+    background-position: 500px 0px;
+  }
 }
 
-.page-container--light .article__title--highlighted{
+.page-container--light .article__title--highlighted {
   background-color: rgb(233, 255, 39);
 }
 

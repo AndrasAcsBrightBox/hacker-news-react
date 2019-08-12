@@ -13,7 +13,7 @@ class Pager extends React.Component {
   createGoHome = startIndex => {
     if (startIndex > 0) {
       return (
-        <a href="/" class="pager__hyperlink">
+        <a href="/" className="pager__hyperlink">
           First
         </a>
       );
@@ -25,7 +25,7 @@ class Pager extends React.Component {
     if (startIndex >= 30) {
       return (
         <a
-          class="pager__hyperlink"
+          className="pager__hyperlink"
           href={"/" + (startIndex - this.arcticleCountOnPage).toString()}
         >
           Previous ({startIndex - this.arcticleCountOnPage + 1}..
@@ -40,7 +40,7 @@ class Pager extends React.Component {
     if (startIndex + this.arcticleCountOnPage < arcticleCount) {
       return (
         <a
-          class="pager__hyperlink"
+          className="pager__hyperlink"
           href={"/" + (startIndex + this.arcticleCountOnPage).toString()}
         >
           Next ({startIndex + this.arcticleCountOnPage + 1}..
@@ -55,7 +55,7 @@ class Pager extends React.Component {
     if (startIndex + this.arcticleCountOnPage < arcticleCount) {
       return (
         <a
-          class="pager__hyperlink"
+          className="pager__hyperlink"
           href={"/" + (arcticleCount - this.arcticleCountOnPage).toString()}
         >
           Last
@@ -67,7 +67,7 @@ class Pager extends React.Component {
 
   render() {
     return (
-      <div class="pager">
+      <div className="pager">
         {this.createGoHome(this.startIndex)} &nbsp;&nbsp;
         {this.createGoBack(this.startIndex)} &nbsp;&nbsp;
         {this.createGoForward(this.startIndex, this.props.arcticleCount)}{" "}

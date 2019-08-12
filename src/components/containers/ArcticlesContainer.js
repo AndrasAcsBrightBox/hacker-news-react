@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import PubSub from "pubsub-js";
+import HnBaseUrlContext from "../../contexts/HnBaseUrlContext";
 
 class ArcticlesContainer extends Component {
   constructor(props) {
@@ -9,13 +11,11 @@ class ArcticlesContainer extends Component {
       arcticles: [],
       filterTerm: ""
     };
-
-    this.hnBaseEndpoint = `https://hacker-news.firebaseio.com/v0/`;
   }
 
-  async resolveStoryPromise(data, index, startArcticlesFromIndex) {
+  async resolveStoryPromise(data, index) {
     const response = await fetch(
-      `${this.hnBaseEndpoint}item/${data[index]}.json`
+      `${this.context.url}item/${data[index]}.json`
     );
     const arcticle = await response.json();
 
@@ -42,7 +42,7 @@ class ArcticlesContainer extends Component {
     });
   };
 
-  onFilter = searchValue => {
+  onFilter = (message, searchValue) => {
     this.setState({
       arcticles: this.state.arcticles.map(arcticle => {
         arcticle.visible =
@@ -75,22 +75,20 @@ class ArcticlesContainer extends Component {
 
     this.setState({ arcticles: arcticles });
 
-    const response = await fetch(`${this.hnBaseEndpoint}topstories.json`);
+    const response = await fetch(`${this.context.url}topstories.json`);
     const topStories = await response.json();
     this.setState({ arcticleCount: topStories.length });
 
     arcticles.forEach(async (arcticle, index) => {
-      const storyDetails = await this.resolveStoryPromise(
-        topStories,
-        index,
-        this.props.startArcticlesFrom
-      );
+      const storyDetails = await this.resolveStoryPromise(topStories, index);
       arcticles[index] = storyDetails;
       this.setState({ arcticles: arcticles });
       if (this.state.filterTerm) {
         this.onFilter(this.state.filterTerm);
       }
     });
+
+    PubSub.subscribe("search__value--change", this.onFilter);
   }
 
   render() {
@@ -99,7 +97,6 @@ class ArcticlesContainer extends Component {
         {React.Children.map(this.props.children, child =>
           React.cloneElement(child, {
             arcticles: this.state.arcticles,
-            onFilter: this.onFilter,
             filterTerm: this.state.filterTerm,
             arcticleCount: this.state.arcticleCount
           })
@@ -108,5 +105,7 @@ class ArcticlesContainer extends Component {
     );
   }
 }
+
+ArcticlesContainer.contextType = HnBaseUrlContext;
 
 export default ArcticlesContainer;

@@ -3,7 +3,7 @@ import ArcticleHandler from "./ArcticleHandler";
 import moment from "moment";
 
 class ArcticleFilledHandler extends ArcticleHandler {
-  getHighlightedTitle (title, searchTerm) {
+  getHighlightedTitle(title, searchTerm) {
     if (!searchTerm) return title;
     else {
       const findStart = title.toLowerCase().indexOf(searchTerm.toLowerCase());
@@ -17,7 +17,7 @@ class ArcticleFilledHandler extends ArcticleHandler {
         </React.Fragment>
       );
     }
-  };
+  }
 
   handleRequest = (arcticle, filterTerm) => {
     return (
@@ -25,7 +25,7 @@ class ArcticleFilledHandler extends ArcticleHandler {
         <div className="article__body">
           <div className="article__index">{arcticle.index + 1}</div>
           <div className="article__title" target="_blank">
-            <a href={arcticle.url} className='article__hyperlink'>
+            <a href={arcticle.url} className="article__hyperlink">
               {this.getHighlightedTitle(arcticle.title, filterTerm)}
             </a>
           </div>
@@ -35,9 +35,18 @@ class ArcticleFilledHandler extends ArcticleHandler {
             {arcticle.score} points by {arcticle.author}
           </div>
           <div className="article__separator">|</div>
-          <div className="article__time">{moment.unix(arcticle.time).fromNow()}</div>
+          <div className="article__time">
+            {moment.unix(arcticle.time).fromNow()}
+          </div>
           <div className="article__separator">|</div>
-          <div className="article__comments">{arcticle.commentCount} comments</div>
+          <div className="article__comments">
+            <a
+              href={"/comments/" + arcticle.id}
+              className="arcticle__comment-hyperlink"
+            >
+              {arcticle.commentCount} comments
+            </a>
+          </div>
         </div>
       </div>
     );
