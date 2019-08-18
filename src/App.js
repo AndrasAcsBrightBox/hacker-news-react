@@ -7,6 +7,7 @@ import Home from "./components/presenters/Home";
 import CommentsContainer from "./components/containers/CommentsContainer";
 import Header from "./components/presenters/Header";
 import Search from "./components/presenters/Search";
+import BackToHome from "./components/presenters/BackToHome";
 
 class App extends React.Component {
   render() {
@@ -16,6 +17,7 @@ class App extends React.Component {
             <Header>
               {/* Search, for now should be only presented on the Home page. */}
               <Route path="/:id?" exact component={Search} />
+              <Route path="/comments/:id" exact component={BackToHome} />
             </Header>
             <Route path="/:id?" exact component={Home} />
             <Route path="/comments/:id" exact component={CommentsContainer} />

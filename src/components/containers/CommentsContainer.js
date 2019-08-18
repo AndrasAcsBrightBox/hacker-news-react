@@ -24,9 +24,11 @@ class CommentsContainer extends React.Component {
   render() {
     return (
       <React.Fragment>
-        {this.state.comments.map(comment => (
-          <div>{comment.text}</div>
-        ))}
+        {this.state.comments.map(comment =>
+          <div key={comment.index}>
+            {comment.text}
+          </div>
+        )}
       </React.Fragment>
     );
   }
