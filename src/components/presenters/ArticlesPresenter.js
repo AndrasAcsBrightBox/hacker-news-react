@@ -5,7 +5,7 @@ import ArcticleNotVisibleHandler from "./Arcticles/ArcticleNotVisibleHandler";
 import ArcticleTitleIsEmptyHandler from "./Arcticles/ArcticleTitleIsEmptyHandler";
 import ArcticleFilledHandler from "./Arcticles/ArcticleFilledHandler";
 
-class Arcticles extends React.Component {
+class ArticlesPresenter extends React.Component {
   render() {
     const arcticleHandler = new ArcticleHandler();
     return this.props.arcticles.map(arcticle => {
@@ -19,4 +19,4 @@ class Arcticles extends React.Component {
   }
 }
 
-export default Arcticles;
+export default ArticlesPresenter;

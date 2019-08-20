@@ -1,5 +1,6 @@
 import React from "react";
 import HnBaseUrlContext from "../../contexts/HnBaseUrlContext";
+import moment from "moment";
 
 class CommentsContainer extends React.Component {
   state = { comments: [] };
@@ -23,13 +24,23 @@ class CommentsContainer extends React.Component {
 
   render() {
     return (
-      <React.Fragment>
-        {this.state.comments.map(comment =>
-          <div key={comment.index}>
-            {comment.text}
+      <div className="comments-container">
+        {this.state.comments.map(comment => (
+          <div key={comment.index} className="comment">
+            <div className="comment__title">
+              ▲ {comment.by} - {moment.unix(comment.time).fromNow()}
+            </div>
+            <div
+              className="comment__content"
+              dangerouslySetInnerHTML={{
+                __html: comment.text
+                  .replace(/(<? *script)/gi, "illegalscript")
+                  .replace(/<a/gi, '<a class="comment__hyperlink" ')
+              }}
+            />
           </div>
-        )}
-      </React.Fragment>
+        ))}
+      </div>
     );
   }
 }

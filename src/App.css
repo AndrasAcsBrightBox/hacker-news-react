@@ -20,25 +20,29 @@
 
 .article__hyperlink,
 .pager__hyperlink,
-.arcticle__comment-hyperlink {
+.arcticle__comment-hyperlink,
+.comment__hyperlink {
   text-decoration: none;
 }
 
 .article__hyperlink:hover,
 .pager__hyperlink:hover,
-.arcticle__comment-hyperlink:hover {
+.arcticle__comment-hyperlink:hover,
+.comment__hyperlink:hover {
   text-decoration: underline;
 }
 
 .page-container--light .article__hyperlink,
 .page-container--light .pager__hyperlink,
-.page-container--light .arcticle__comment-hyperlink {
+.page-container--light .arcticle__comment-hyperlink,
+.page-container--light .comment__hyperlink {
   color: #000;
 }
 
 .page-container--night .article__hyperlink,
 .page-container--night .pager__hyperlink,
-.page-container--night .arcticle__comment-hyperlink {
+.page-container--night .arcticle__comment-hyperlink,
+.page-container--night .comment__hyperlink {
   color: #7f9f7f;
 }
 
@@ -194,4 +198,17 @@
 
 .home-icon__hyperlink {
   font-size: 30px;
+}
+
+.comment__title{
+  color: #b5b5b5;
+  margin-bottom: 2px;
+}
+
+.comment__content {
+  font-size: 14px;
+}
+
+.comments-container {
+  margin-left: 10px;
 }
