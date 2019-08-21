@@ -200,6 +200,10 @@
   font-size: 30px;
 }
 
+.comment {
+  margin-top: 15px;
+}
+
 .comment__title{
   color: #b5b5b5;
   margin-bottom: 2px;
