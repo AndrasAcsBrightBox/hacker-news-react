@@ -3,7 +3,7 @@ import HnBaseUrlContext from "../../contexts/HnBaseUrlContext";
 import moment from "moment";
 
 class CommentsContainer extends React.Component {
-  state = { comments: [] };
+  state = { comments: [], loading: true };
 
   async componentDidMount() {
     const comments = [];
@@ -19,8 +19,8 @@ class CommentsContainer extends React.Component {
       const comment = await commentResponse.json();
       await this.getChildren(comment, 0);
       comments.push(comment);
-      this.setState({ comments });
     }
+    this.setState({ comments, loading: false });
   }
 
   async getChildren(comment, level) {
@@ -76,9 +76,19 @@ class CommentsContainer extends React.Component {
 
   render() {
     return (
-      <div className="comments-container">
-        {this.state.comments
-          .map(comment => this.renderComment(comment))}
+      <div
+        className={`comments-container ${
+          this.state.loading ? "comments-container--loading" : ""
+        }`}
+      >
+        {this.state.loading ? (
+          <span className="loading-icon__emoji" role="img" aria-label="Loading">
+            &#129526;
+            <div className="loading-icon__subtext">Loading</div>
+          </span>
+        ) : (
+          this.state.comments.map(comment => this.renderComment(comment))
+        )}
       </div>
     );
   }

@@ -6,7 +6,7 @@ class BackToHome extends React.Component {
       <div className="home-icon">
         <a href="/" className="home-icon__hyperlink">
           <span
-            className="home-iconm__emoji"
+            className="home-icon__emoji"
             role="img"
             aria-label="Go back to home."
           >

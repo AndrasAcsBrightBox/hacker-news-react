@@ -204,7 +204,7 @@
   margin-top: 15px;
 }
 
-.comment__title{
+.comment__title {
   color: #b5b5b5;
   margin-bottom: 2px;
 }
@@ -215,4 +215,28 @@
 
 .comments-container {
   margin-left: 10px;
+}
+
+.comments-container--loading {
+  text-align: center;
+  padding: 50px;
+}
+
+.loading-icon__emoji {
+  font-size: 60px;
+  animation: spin 1.5s linear infinite;
+  display: inline-block;
+}
+
+.loading-icon__subtext {
+  font-size: 14px;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
